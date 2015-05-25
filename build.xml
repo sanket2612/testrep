@@ -44,7 +44,9 @@
 
    <target name="test" depends="compile" description="Run unit tests">
   <delete dir="${junit.results}"/>
+  <delete dir="testbuild"/>
   <mkdir dir="${junit.results}"/>
+  <mkdir dir="testbuild"/>
   <junit fork="no" errorProperty="test.failed" failureProperty="test.failed" >
    
     <classpath>
