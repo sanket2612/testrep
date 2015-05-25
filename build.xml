@@ -31,7 +31,7 @@
 				<attribute name="Built-At" value="${build-info.current-time}" />
 			</manifest>
 		</war>
-		<copy file="${build-directory}/${war-file-name}" todir="${tomcat.webapps}"/>
+		<!--<copy file="${build-directory}/${war-file-name}" todir="${tomcat.webapps}"/>-->
 	</target>
 
 </project>
