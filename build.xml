@@ -37,6 +37,8 @@
      <copydir src="web" dest="${outputDir}"/> 
      <mkdir dir="${outputDir}/WEB-INF/classes" />      
      <javac srcdir="${sourceDir}" destdir="${outputDir}/WEB-INF/classes" classpathref="project-classpath" />
+     <delete dir="testbuild"/>
+     <mkdir dir="testbuild"/>
      <javac srcdir="${src.test}" destdir="testbuild" classpathref="project-classpath" />
    </target>
 
@@ -44,9 +46,9 @@
 
    <target name="test" depends="compile" description="Run unit tests">
   <delete dir="${junit.results}"/>
-  <delete dir="testbuild"/>
+  
   <mkdir dir="${junit.results}"/>
-  <mkdir dir="testbuild"/>
+  
   <junit fork="no" errorProperty="test.failed" failureProperty="test.failed" >
    
     <classpath>
