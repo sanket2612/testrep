@@ -6,6 +6,8 @@
       <property name="war-file-name" value="ROOT.war" />
       <property name="web-xml-file" value="web/WEB-INF/web.xml" />
       <property name="builder" value="Team" />
+      <property name="src.test" location="test"/>
+      <property name="junit.results" value="test-results"/>
       <tstamp prefix="build-info">
         <format property="current-date" pattern="d-MMMM-yyyy" locale="en" />
         <format property="current-time" pattern="hh:mm:ss a z" locale="en" />
@@ -16,6 +18,11 @@
     <fileset dir="web/WEB-INF/lib" includes="*.jar" />
     <fileset dir="lib" includes="*.jar" />  
   </path>
+
+  <path id="classpath.test">
+  <path refid="project-classpath"/>
+  <pathelement location="${outputDir}"/>
+ </path>
 
    <target name="clean" depends="init">
       <delete dir="${outputDir}" />
@@ -30,9 +37,31 @@
      <copydir src="web" dest="${outputDir}"/> 
      <mkdir dir="${outputDir}/WEB-INF/classes" />      
      <javac srcdir="${sourceDir}" destdir="${outputDir}/WEB-INF/classes" classpathref="project-classpath" />
+     <javac srcdir="${src.test}" destdir="testbuild" classpathref="project-classpath" />
    </target>
+
    
-  <target name="war" depends="compile">
+
+   <target name="test" depends="compile" description="Run unit tests">
+  <delete dir="${junit.results}"/>
+  <mkdir dir="${junit.results}"/>
+  <junit fork="no" errorProperty="test.failed" failureProperty="test.failed" >
+   
+    <classpath>
+      <path refid="classpath.test"/>
+      <pathelement location="testbuild"/>
+    </classpath>
+
+   <formatter type="plain" usefile="false"/>
+   <formatter type="xml"/>
+   <batchtest todir="${junit.results}">
+    <fileset dir="testbuild" includes="**/*Test.class"/>
+   </batchtest>
+  </junit>
+  <fail message="Tests failed. Please see test reports" if="test.failed" />
+ </target>
+
+  <target name="war" depends="test">
     <mkdir dir="${build-directory}" />
     <delete file="${build-directory}/${war-file-name}" />
     <war warfile="${build-directory}/${war-file-name}" webxml="${web-xml-file}">      
