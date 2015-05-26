@@ -43,7 +43,7 @@
     </target>
 
    
-   <target name="test" depends="compile" description="Run unit tests" unless="dont.run.tests">
+   <target name="test1" depends="compile" description="Run unit tests" unless="dont.run.tests">
         <delete dir="${junit.results}"/>
   
         <mkdir dir="${junit.results}"/>
@@ -58,7 +58,28 @@
             <formatter type="plain" usefile="false"/>
             <formatter type="xml"/>
             <batchtest todir="${junit.results}">
-                <fileset dir="testbuild" includes="**/*Test.class"/>
+                <fileset dir="testbuild" includes="**/SimpleTest.class"/>
+            </batchtest>
+        </junit>
+        <fail message="Tests failed. Please see test reports" if="test.failed" />
+    </target>
+    
+    <target name="test2" depends="compile" description="Run unit tests" unless="dont.run.tests">
+        <delete dir="${junit.results}"/>
+  
+        <mkdir dir="${junit.results}"/>
+  
+        <junit fork="no" errorProperty="test.failed" failureProperty="test.failed" >
+   
+            <classpath>
+                <path refid="classpath.test"/>
+                <pathelement location="testbuild"/>
+            </classpath>
+
+            <formatter type="plain" usefile="false"/>
+            <formatter type="xml"/>
+            <batchtest todir="${junit.results}">
+                <fileset dir="testbuild" includes="**/SimpleTest2.class"/>
             </batchtest>
         </junit>
         <fail message="Tests failed. Please see test reports" if="test.failed" />
