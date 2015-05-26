@@ -1,4 +1,4 @@
-<project name="ROOT" default="compile" basedir=".">
+<project name="ROOT" default="war" basedir=".">
     <target name="init">      
         <property name="sourceDir" value="src" />
         <property name="outputDir" value="antbuild" />
