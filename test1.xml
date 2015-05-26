@@ -1,0 +1,41 @@
+<project name="ROOT" default="test" basedir=".">
+    <target name="init">      
+        <property name="sourceDir" value="src" />
+        <property name="outputDir" value="antbuild" />
+        <property name="build-directory" value="dist" />
+        <property name="war-file-name" value="ROOT.war" />
+        <property name="web-xml-file" value="web/WEB-INF/web.xml" />
+        <property name="builder" value="Team" />
+        <property name="src.test" location="test"/>
+        <property name="junit.results" value="test-results"/>
+        <tstamp prefix="build-info">
+            <format property="current-date" pattern="d-MMMM-yyyy" locale="en" />
+            <format property="current-time" pattern="hh:mm:ss a z" locale="en" />
+        </tstamp>
+    </target>
+
+   
+   
+   <target name="test" depends="compile" description="Run unit tests">
+        <delete dir="${junit.results}"/>
+  
+        <mkdir dir="${junit.results}"/>
+  
+        <junit fork="no" errorProperty="test.failed" failureProperty="test.failed" >
+   
+            <classpath>
+                <path refid="classpath.test"/>
+                <pathelement location="testbuild"/>
+            </classpath>
+
+            <formatter type="plain" usefile="false"/>
+            <formatter type="xml"/>
+            <batchtest todir="${junit.results}">
+                <fileset dir="testbuild" includes="**/*Test.class"/>
+            </batchtest>
+        </junit>
+        <fail message="Tests failed. Please see test reports" if="test.failed" />
+    </target>
+
+
+</project>
