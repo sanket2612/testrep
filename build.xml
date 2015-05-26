@@ -43,8 +43,7 @@
     </target>
 
    
-
-<!--    <target name="test" depends="compile" description="Run unit tests">
+   <target name="test" depends="compile" description="Run unit tests" unless="dont.run.tests">
         <delete dir="${junit.results}"/>
   
         <mkdir dir="${junit.results}"/>
@@ -63,9 +62,9 @@
             </batchtest>
         </junit>
         <fail message="Tests failed. Please see test reports" if="test.failed" />
-    </target>-->
+    </target>
 
-<!--    <target name="war" depends="test">
+    <target name="war">
         <mkdir dir="${build-directory}" />
         <delete file="${build-directory}/${war-file-name}" />
         <war warfile="${build-directory}/${war-file-name}" webxml="${web-xml-file}">      
@@ -79,7 +78,7 @@
                 <attribute name="Built-At" value="${build-info.current-time}" />
             </manifest>
         </war>
-        <copy file="${build-directory}/${war-file-name}" todir="${tomcat.webapps}"/>
-    </target>-->
+        <!--<copy file="${build-directory}/${war-file-name}" todir="${tomcat.webapps}"/>-->
+    </target>
 
 </project>
