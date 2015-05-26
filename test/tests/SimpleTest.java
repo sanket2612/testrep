@@ -44,4 +44,10 @@ public class SimpleTest {
      public void hello() {
          assertEquals("1", "1");
      }
+     
+     @Test
+     public void test1(){
+         assertEquals("1", "1");
+     }
+     
 }
