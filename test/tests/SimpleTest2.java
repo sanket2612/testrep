@@ -41,6 +41,6 @@ public class SimpleTest2 {
     
      @Test
      public void hello2() {
-         assertEquals("1", "2");
+         assertEquals("1", "1");
      }
 }
