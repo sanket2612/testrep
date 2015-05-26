@@ -50,4 +50,13 @@ public class SimpleTest {
          assertEquals("1", "1");
      }
      
+     @Test
+     public void test2(){
+         assertEquals("1", "1");
+     }
+     @Test
+     public void test3(){
+         assertEquals("1", "1");
+     }
+     
 }
