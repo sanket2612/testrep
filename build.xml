@@ -1,8 +1,7 @@
 <project name="ROOT" default="war" basedir=".">
     <target name="init">      
         <property name="sourceDir" value="src" />
-        <property name="outputDir" value="antbuild" />
-        <property name="build-directory" value="dist" />
+        <property name="outputDir" value="antbuild" />        
         <property name="war-file-name" value="ROOT.war" />
         <property name="web-xml-file" value="web/WEB-INF/web.xml" />
         <property name="builder" value="Team" />
@@ -26,7 +25,7 @@
 
     <target name="clean" depends="init">
         <delete dir="${outputDir}" />
-        <delete dir="${build-directory}" />
+        
     </target>
     <target name="prepare" depends="clean">
         <mkdir dir="${outputDir}" />      
@@ -86,11 +85,10 @@
     </target>
 
     <target name="war">
-        <mkdir dir="${build-directory}" />
-        <delete file="${build-directory}/${war-file-name}" />
-        <war warfile="${build-directory}/${war-file-name}" webxml="${web-xml-file}">      
-            <fileset dir="web">
-                 Need to exclude it since webxml is an attribute of the war tag above 
+        <mkdir dir="dist" />
+        <delete file="dist/ROOT.war" />
+        <war warfile="dist/ROOT.war" webxml="web/WEB-INF/web.xml">      
+            <fileset dir="web">               
                 <exclude name="WEB-INF/web.xml" />
             </fileset>
             <manifest>
